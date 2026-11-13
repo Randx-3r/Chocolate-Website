@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milan Luxe Chocolate | Crafted in Nairobi • Made with Love</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cocoa: {
+                            50: '#FAF4ED',
+                            100: '#F4ECE1',
+                            200: '#E5D3C0',
+                            300: '#D2B498',
+                            400: '#B88F6D',
+                            500: '#9C6F4A',
+                            600: '#7E5234',
+                            700: '#5C3A21',
+                            800: '#3D2413',
+                            900: '#231308',
+                        },
+                        gold: {
+                            400: '#F3C668',
+                            500: '#E5AF39',
+                            600: '#C79124',
+                        },
+                        berry: {
+                            100: '#FDE8EB',
+                            400: '#F48B9B',
+                            600: '#E85A71',
+                            800: '#9E2A3B',
+                        },
+                        hibiscus: {
+                            100: '#FBE8EC',
+                            500: '#C72C48',
+                            700: '#8B1E3F',
+                            900: '#500E22',
+                        },
+                        coffee: {
+                            100: '#F5EBE6',
+                            600: '#6F4E37',
+                            900: '#362215'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF4ED;
+            color: #231308;
+        }
+        .font-serif-title {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 211, 192, 0.6);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4ECE1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #9C6F4A;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cocoa-300 selection:text-cocoa-900">
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast" class="fixed top-20 right-5 z-50 transform translate-x-full transition-transform duration-300 ease-in-out max-w-md bg-cocoa-900 text-white p-4 rounded-xl shadow-2xl border-l-4 border-gold-500 flex items-center space-x-3">
+        <i id="toast-icon" class="fas fa-check-circle text-gold-400 text-xl"></i>
+        <div>
+            <h4 id="toast-title" class="font-bold text-sm text-gold-400">Success</h4>
+            <p id="toast-msg" class="text-xs text-cocoa-100">Item added to your basket!</p>
+        </div>
+    </div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-cocoa-900/95 backdrop-blur-md text-cocoa-100 border-b border-cocoa-700/50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-11 h-11 rounded-full bg-gradient-to-br from-gold-400 via-cocoa-500 to-cocoa-800 flex items-center justify-center text-cocoa-900 font-bold text-xl shadow-md border border-gold-400/50">
+                        <i class="fas fa-leaf text-gold-400"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif-title text-xl sm:text-2xl font-bold tracking-wider text-gold-400 block leading-none">MILAN</span>
+                        <span class="block text-[10px] tracking-widest uppercase text-cocoa-200 mt-0.5">LUXE CHOCOLATE</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button onclick="navigateTo('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:text-gold-400 text-gold-400">
+                        <i class="fas fa-store mr-1.5 text-xs"></i> Home Catalog
+                    </button>
+                    <button onclick="navigateTo('mix')" id="nav-mix" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cocoa-200 hover:text-gold-400 transition-colors">
+                        <i class="fas fa-boxes-stacked mr-1.5 text-xs"></i> Custom Box Builder
+                    </button>
+                    <button onclick="navigateTo('contact')" id="nav-contact" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-cocoa-200 hover:text-gold-400 transition-colors">
+                        <i class="fas fa-envelope mr-1.5 text-xs"></i> Contact Us
+                    </button>
+                </nav>
+
+                <!-- Actions (Cart & Quick Checkout) -->
+                <div class="flex items-center space-x-3 sm:space-x-4">
+                    <button onclick="navigateTo('checkout')" class="relative p-2 text-cocoa-200 hover:text-gold-400 transition-colors focus:outline-none" title="View Cart">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-gold-500 text-cocoa-900 font-bold text-[11px] w-5 h-5 rounded-full flex items-center justify-center shadow-md">0</span>
+                    </button>
+                    
+                    <button onclick="navigateTo('checkout')" class="hidden sm:inline-flex items-center px-4 py-2 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-cocoa-900 text-sm font-semibold rounded-lg shadow-md transition-transform active:scale-95">
+                        <i class="fas fa-credit-card mr-2 text-xs"></i> Checkout
+                    </button>
+
+                    <!-- Mobile menu button -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-md text-cocoa-200 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cocoa-800 border-t border-cocoa-700 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-md text-base font-medium text-cocoa-100 hover:bg-cocoa-700 flex items-center">
+                <i class="fas fa-store w-6 text-gold-400"></i> Home Catalog
+            </button>
+            <button onclick="navigateTo('mix'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-md text-base font-medium text-cocoa-100 hover:bg-cocoa-700 flex items-center">
+                <i class="fas fa-boxes-stacked w-6 text-gold-400"></i> Custom Mix & Match Box
+            </button>
+            <button onclick="navigateTo('checkout'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-md text-base font-medium text-cocoa-100 hover:bg-cocoa-700 flex items-center">
+                <i class="fas fa-credit-card w-6 text-gold-400"></i> Checkout & Pay
+            </button>
+            <button onclick="navigateTo('contact'); toggleMobileMenu();" class="w-full text-left px-3 py-2.5 rounded-md text-base font-medium text-cocoa-100 hover:bg-cocoa-700 flex items-center">
+                <i class="fas fa-envelope w-6 text-gold-400"></i> Contact Us
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow">
+
+        <!-- ================================================================= -->
+        <!-- 1. HOME PAGE -->
+        <!-- ================================================================= -->
+        <section id="page-home" class="page-content space-y-12 pb-16">
+            
+            <!-- Hero Banner -->
+            <div class="relative bg-cocoa-900 text-white overflow-hidden shadow-xl">
+                <div class="absolute inset-0 z-0 opacity-20 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&q=80');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-cocoa-900 via-cocoa-900/95 to-cocoa-900/70 z-10"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-20 flex flex-col md:flex-row items-center justify-between">
+                    <div class="max-w-2xl text-center md:text-left space-y-6">
+                        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 bg-gold-500/20 text-gold-400 rounded-full text-xs font-semibold uppercase tracking-widest border border-gold-500/30">
+                            <span>✨ Crafted in Nairobi • Made with Love</span>
+                        </div>
+                        
+                        <h1 class="font-serif-title text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                            MILAN <span class="text-gold-400 italic font-normal">LUXE</span> CHOCOLATE
+                        </h1>
+                        <p class="text-cocoa-200 text-base sm:text-lg leading-relaxed">
+                            Discover our three masterfully handcrafted signature blends—infused with rich Kenyan coffee & walnuts, sweet ripe strawberries & caramel, and soothing hibiscus & ginger.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 pt-2 justify-center md:justify-start">
+                            <button onclick="navigateTo('mix')" class="px-8 py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-cocoa-900 font-bold rounded-xl shadow-lg transform transition active:scale-95 flex items-center justify-center">
+                                <i class="fas fa-wand-magic-sparkles mr-2"></i> Build Custom Box
+                            </button>
+                            <a href="#catalog" class="px-8 py-3.5 bg-cocoa-800/80 hover:bg-cocoa-700 text-cocoa-100 font-semibold rounded-xl border border-cocoa-600 transition flex items-center justify-center">
+                                Explore Our Blends
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Graphic Badge -->
+                    <div class="mt-10 md:mt-0 relative flex justify-center items-center">
+                        <div class="w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-to-tr from-cocoa-700 via-gold-600/30 to-hibiscus-700/40 p-2 shadow-2xl">
+                            <div class="w-full h-full rounded-full bg-cocoa-900 flex flex-col items-center justify-center text-center p-6 border-2 border-gold-500/40">
+                                <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">Artisanal Excellence</span>
+                                <h2 class="font-serif-title text-2xl text-white font-bold my-1">Milan Luxe</h2>
+                                <p class="text-xs text-cocoa-300">100% Organic Cocoa & Natural Ingredients</p>
+                                <div class="mt-3 flex space-x-3 text-gold-400 text-lg">
+                                    <i class="fas fa-mug-hot" title="Coffee Blend"></i>
+                                    <i class="fas fa-stroopwafel" title="Strawberry Blend"></i>
+                                    <i class="fas fa-spa" title="Cycle Blend"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Bar -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 shadow-sm">
+                        <div class="w-12 h-12 rounded-xl bg-cocoa-800 text-gold-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fas fa-heart font-bold"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-cocoa-900">Handcrafted in Nairobi</h3>
+                            <p class="text-xs text-cocoa-600">Fresh local ingredients blended with premium cocoa.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 shadow-sm">
+                        <div class="w-12 h-12 rounded-xl bg-cocoa-800 text-gold-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-cocoa-900">Custom Luxury Boxes</h3>
+                            <p class="text-xs text-cocoa-600">Mix 6, 12, or 24 piece custom assortments.</p>
+                        </div>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl flex items-center space-x-4 shadow-sm">
+                        <div class="w-12 h-12 rounded-xl bg-cocoa-800 text-gold-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fas fa-mobile-screen-button"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-cocoa-900">Secure Online Payment</h3>
+                            <p class="text-xs text-cocoa-600">M-Pesa, Airtel Money, Visa &amp; Mastercard via Pesapal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Product Catalog -->
+            <div id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-cocoa-600">Signature Collections</span>
+                        <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-cocoa-900">Milan Luxe Featured Blends</h2>
+                    </div>
+                    <!-- Category Filters -->
+                    <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
+                        <button onclick="filterCatalog('all')" class="cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-800 text-gold-400 shadow-sm" data-cat="all">All Blends</button>
+                        <button onclick="filterCatalog('coffee')" class="cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-100 text-cocoa-700 hover:bg-cocoa-200 transition" data-cat="coffee">Coffee Blend</button>
+                        <button onclick="filterCatalog('strawberry')" class="cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-100 text-cocoa-700 hover:bg-cocoa-200 transition" data-cat="strawberry">Strawberry Blend</button>
+                        <button onclick="filterCatalog('cycle')" class="cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-100 text-cocoa-700 hover:bg-cocoa-200 transition" data-cat="cycle">Cycle Blend</button>
+                    </div>
+                </div>
+
+                <!-- Product Cards Grid -->
+                <div id="product-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Injected dynamically via script -->
+                </div>
+            </div>
+
+            <!-- Custom Box Banner -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                <div class="rounded-3xl bg-gradient-to-r from-cocoa-900 via-cocoa-800 to-cocoa-900 text-white p-8 sm:p-12 relative overflow-hidden shadow-2xl border border-cocoa-700">
+                    <div class="relative z-10 max-w-xl space-y-4">
+                        <span class="bg-gold-500 text-cocoa-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Custom Packaging</span>
+                        <h3 class="font-serif-title text-3xl font-bold text-gold-400">Mix Your Favorite Milan Luxe Blends</h3>
+                        <p class="text-cocoa-200 text-sm">Create a personalized luxury gift box containing your ideal ratio of Coffee, Strawberry, and Cycle chocolate bars or pralines.</p>
+                        <button onclick="navigateTo('mix')" class="mt-4 px-6 py-3 bg-gold-500 hover:bg-gold-400 text-cocoa-900 font-bold rounded-xl shadow-md transition transform active:scale-95 inline-flex items-center">
+                            Open Box Builder <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </div>
+                    <div class="absolute right-0 bottom-0 opacity-15 pointer-events-none transform translate-x-10 translate-y-10">
+                        <i class="fas fa-box-open text-[240px] text-gold-400"></i>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 2. MIX & MATCH CUSTOM BOX PAGE -->
+        <!-- ================================================================= -->
+        <section id="page-mix" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-cocoa-600">Personalized Assortment</span>
+                <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-cocoa-900">Custom Milan Luxe Box Builder</h1>
+                <p class="text-cocoa-600 text-sm">Select your box size and mix any combination of our three signature Nairobi-crafted blends.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
+                <!-- Left 2 Columns: Chocolates Selection Grid -->
+                <div class="lg:col-span-2 space-y-6">
+                    
+                    <!-- Box Size Selector -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 space-y-4">
+                        <h3 class="font-bold text-cocoa-900 text-base flex items-center">
+                            <span class="w-6 h-6 rounded-full bg-cocoa-800 text-gold-400 text-xs flex items-center justify-center mr-2">1</span>
+                            Choose Box Size:
+                        </h3>
+                        <div class="grid grid-cols-3 gap-3" id="box-size-selector">
+                            <button onclick="selectBoxCapacity(6)" id="box-cap-6" class="box-cap-btn p-4 rounded-xl border-2 border-gold-500 bg-cocoa-50 text-center transition flex flex-col items-center">
+                                <span class="text-xs uppercase font-bold text-cocoa-600">Petite Box</span>
+                                <span class="font-serif-title text-xl font-bold text-cocoa-900">6 Items</span>
+                                <span class="text-[11px] text-cocoa-500 mt-1">~300 grams</span>
+                            </button>
+                            <button onclick="selectBoxCapacity(12)" id="box-cap-12" class="box-cap-btn p-4 rounded-xl border border-cocoa-200 hover:border-cocoa-400 bg-white text-center transition flex flex-col items-center">
+                                <span class="text-xs uppercase font-bold text-cocoa-600">Signature Box</span>
+                                <span class="font-serif-title text-xl font-bold text-cocoa-900">12 Items</span>
+                                <span class="text-[11px] text-cocoa-500 mt-1">~600 grams</span>
+                            </button>
+                            <button onclick="selectBoxCapacity(24)" id="box-cap-24" class="box-cap-btn p-4 rounded-xl border border-cocoa-200 hover:border-cocoa-400 bg-white text-center transition flex flex-col items-center">
+                                <span class="text-xs uppercase font-bold text-cocoa-600">Grand Luxe Box</span>
+                                <span class="font-serif-title text-xl font-bold text-cocoa-900">24 Items</span>
+                                <span class="text-[11px] text-cocoa-500 mt-1">~1,200 grams</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Items Selection -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-cocoa-900 text-base flex items-center">
+                                <span class="w-6 h-6 rounded-full bg-cocoa-800 text-gold-400 text-xs flex items-center justify-center mr-2">2</span>
+                                Select Milan Luxe Blends to Include:
+                            </h3>
+                            <button onclick="resetMixBox()" class="text-xs text-red-600 hover:underline">
+                                <i class="fas fa-rotate-left mr-1"></i> Reset Box
+                            </button>
+                        </div>
+
+                        <div class="space-y-4" id="mix-items-container">
+                            <!-- Injected dynamically via script -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Live Box Summary Calculator -->
+                <div class="bg-cocoa-900 text-cocoa-100 p-6 rounded-2xl shadow-xl space-y-6 sticky top-24 border border-cocoa-700">
+                    <div class="border-b border-cocoa-700 pb-4">
+                        <h3 class="font-serif-title text-xl font-bold text-gold-400 flex items-center justify-between">
+                            <span>Your Custom Box</span>
+                            <i class="fas fa-gift text-gold-400"></i>
+                        </h3>
+                        <p class="text-xs text-cocoa-300 mt-1">Crafted in Nairobi • Made with Love</p>
+                    </div>
+
+                    <!-- Progress Bar for Box Capacity -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-cocoa-300">Box Capacity Fill:</span>
+                            <span id="capacity-counter" class="font-bold text-gold-400">0 / 6 pcs</span>
+                        </div>
+                        <div class="w-full bg-cocoa-800 h-3 rounded-full overflow-hidden border border-cocoa-700">
+                            <div id="capacity-bar" class="bg-gradient-to-r from-gold-500 to-gold-400 h-full w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Price & Weight Breakdown -->
+                    <div class="bg-cocoa-800/60 p-4 rounded-xl border border-cocoa-700/50 space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-cocoa-300">Total Net Weight:</span>
+                            <span id="custom-box-weight" class="font-semibold text-white">0 g</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-cocoa-300">Blends Selected:</span>
+                            <span id="custom-box-varieties" class="font-semibold text-white">0 types</span>
+                        </div>
+                        <div class="border-t border-cocoa-700 pt-2 flex justify-between items-center">
+                            <span class="text-cocoa-200 font-bold">Total Price:</span>
+                            <span id="custom-box-price" class="text-2xl font-bold text-gold-400">KSh 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Selected Items List -->
+                    <div class="space-y-2">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-cocoa-400">Box Contents:</h4>
+                        <div id="mix-preview-list" class="max-h-48 overflow-y-auto space-y-1.5 pr-1 text-xs">
+                            <p class="text-cocoa-400 italic py-2 text-center">Your box is empty. Click chocolate items to add them!</p>
+                        </div>
+                    </div>
+
+                    <!-- Add Custom Box to Cart Button -->
+                    <button id="add-box-to-cart-btn" onclick="addCustomBoxToCart()" disabled class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-cocoa-900 font-bold rounded-xl shadow-md transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>Add Custom Box to Cart</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 3. CHECKOUT & PAYMENT PAGE -->
+        <!-- ================================================================= -->
+        <section id="page-checkout" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-cocoa-600">Fast & Secure Payment</span>
+                <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-cocoa-900">Checkout & Payment</h1>
+                <p class="text-cocoa-600 text-sm">Pay securely with M-Pesa, Airtel Money, Visa or Mastercard through Pesapal.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Shopping Cart Review & Delivery Details -->
+                <div class="lg:col-span-7 space-y-6">
+                    
+                    <!-- Order Items Review -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 space-y-4">
+                        <h3 class="font-bold text-cocoa-900 text-lg flex items-center border-b border-cocoa-100 pb-3">
+                            <i class="fas fa-shopping-basket text-cocoa-600 mr-2"></i> Selected Milan Luxe Chocolates
+                        </h3>
+
+                        <div id="checkout-cart-items" class="divide-y divide-cocoa-100 max-h-80 overflow-y-auto pr-1">
+                            <!-- Dynamically generated cart items -->
+                        </div>
+
+                        <div class="border-t border-cocoa-200 pt-4 flex justify-between items-center text-sm">
+                            <span class="text-cocoa-600">Subtotal</span>
+                            <span id="checkout-subtotal" class="font-bold text-cocoa-900">KSh 0</span>
+                        </div>
+                    </div>
+
+                    <!-- Customer Delivery Details Form -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 space-y-4">
+                        <h3 class="font-bold text-cocoa-900 text-lg flex items-center border-b border-cocoa-100 pb-3">
+                            <i class="fas fa-truck text-cocoa-600 mr-2"></i> Delivery Information
+                        </h3>
+                        <form id="shipping-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4" onsubmit="return false" novalidate>
+                            <div>
+                                <label for="ship-name" class="block text-xs font-medium text-cocoa-700 mb-1">Full Name</label>
+                                <input type="text" id="ship-name" autocomplete="name" required placeholder="Jane Doe" class="w-full px-3 py-2 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                            <div>
+                                <label for="ship-phone" class="block text-xs font-medium text-cocoa-700 mb-1">Phone Number</label>
+                                <input type="tel" id="ship-phone" autocomplete="tel" required placeholder="0712345678" class="w-full px-3 py-2 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="ship-email" class="block text-xs font-medium text-cocoa-700 mb-1">Email Address (for your receipt)</label>
+                                <input type="email" id="ship-email" autocomplete="email" required placeholder="name@example.com" class="w-full px-3 py-2 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label for="ship-address" class="block text-xs font-medium text-cocoa-700 mb-1">Delivery Address (Nairobi / Nationwide)</label>
+                                <input type="text" id="ship-address" autocomplete="street-address" required placeholder="Nairobi CBD, Kilimani, Westlands, etc." class="w-full px-3 py-2 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+                <!-- Right: Payment (Pesapal) -->
+                <div class="lg:col-span-5 bg-white p-6 rounded-2xl shadow-md border border-cocoa-200 space-y-6 lg:sticky lg:top-24">
+
+                    <div>
+                        <h3 class="font-bold text-cocoa-900 text-lg flex items-center">
+                            <i class="fas fa-shield-halved text-gold-600 mr-2"></i> Secure Payment
+                        </h3>
+                        <p class="text-xs text-cocoa-500 mt-1">Powered by Pesapal. You choose how to pay on the next screen.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-xs font-medium text-cocoa-800">
+                        <div class="flex items-center space-x-2 bg-cocoa-50 border border-cocoa-200 rounded-lg px-3 py-2"><i class="fas fa-mobile-screen-button text-emerald-600"></i><span>M-Pesa</span></div>
+                        <div class="flex items-center space-x-2 bg-cocoa-50 border border-cocoa-200 rounded-lg px-3 py-2"><i class="fas fa-mobile-screen-button text-red-600"></i><span>Airtel Money</span></div>
+                        <div class="flex items-center space-x-2 bg-cocoa-50 border border-cocoa-200 rounded-lg px-3 py-2"><i class="fab fa-cc-visa text-blue-700"></i><span>Visa</span></div>
+                        <div class="flex items-center space-x-2 bg-cocoa-50 border border-cocoa-200 rounded-lg px-3 py-2"><i class="fab fa-cc-mastercard text-orange-600"></i><span>Mastercard</span></div>
+                    </div>
+
+                    <div class="bg-cocoa-50 border-l-4 border-gold-500 p-3.5 rounded-r-xl flex items-start space-x-3">
+                        <i class="fas fa-lock text-gold-600 text-lg mt-0.5"></i>
+                        <p class="text-xs text-cocoa-800">M-Pesa prompts and card details are handled on Pesapal's secure page. We never see or store your card number, CVV or PIN.</p>
+                    </div>
+
+                    <div class="bg-cocoa-50 p-4 rounded-xl border border-cocoa-200 flex justify-between items-center">
+                        <span class="text-xs font-bold uppercase text-cocoa-600">Total Payable:</span>
+                        <span id="checkout-total-price" class="text-2xl font-serif-title font-bold text-cocoa-900">KSh 0</span>
+                    </div>
+
+                    <p id="pay-error" role="alert" class="hidden text-xs text-red-700 bg-red-50 border border-red-200 rounded-lg p-3"></p>
+
+                    <button id="pay-btn" onclick="startPesapalCheckout()" class="w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-cocoa-900 font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-lock"></i>
+                        <span id="pay-btn-text">Pay Securely with Pesapal</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 3b. PAYMENT RESULT PAGE (Pesapal sends customers back here) -->
+        <!-- ================================================================= -->
+        <section id="page-result" class="page-content hidden max-w-xl mx-auto px-4 sm:px-6 py-16 text-center space-y-5">
+            <div id="result-icon" class="w-20 h-20 mx-auto rounded-full bg-cocoa-100 text-cocoa-700 flex items-center justify-center text-3xl"><i class="fas fa-spinner fa-spin"></i></div>
+            <h1 id="result-title" class="font-serif-title text-3xl font-bold text-cocoa-900">Confirming your payment...</h1>
+            <p id="result-msg" class="text-sm text-cocoa-600">Please wait a moment while we confirm with Pesapal.</p>
+            <p id="result-ref" class="text-xs font-mono text-cocoa-500"></p>
+            <div id="result-actions" class="flex flex-wrap justify-center gap-3 pt-2"></div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 4. CONTACT PAGE -->
+        <!-- ================================================================= -->
+        <section id="page-contact" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-cocoa-600">Milan Luxe Contact</span>
+                <h1 class="font-serif-title text-3xl sm:text-4xl font-bold text-cocoa-900">Get In Touch With Us</h1>
+                <p class="text-cocoa-600 text-sm">Have questions about our Nairobi-crafted chocolate blends, custom gift boxes, or payments?</p>
+            </div>
+
+            <!-- Contact Information Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Phone Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 text-center space-y-3 flex flex-col items-center">
+                    <div class="w-14 h-14 rounded-full bg-cocoa-100 text-cocoa-800 flex items-center justify-center text-2xl">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="font-bold text-cocoa-900 text-lg">Call Us</h3>
+                    <p class="text-xs text-cocoa-500">For inquiries and direct orders</p>
+                    <a href="tel:0110503690" class="text-base font-bold text-gold-600 hover:text-gold-500 bg-cocoa-50 px-4 py-2 rounded-lg border border-cocoa-200">
+                        0110503690
+                    </a>
+                </div>
+
+                <!-- Email Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 text-center space-y-3 flex flex-col items-center">
+                    <div class="w-14 h-14 rounded-full bg-cocoa-100 text-cocoa-800 flex items-center justify-center text-2xl">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="font-bold text-cocoa-900 text-lg">Email Us</h3>
+                    <p class="text-xs text-cocoa-500">We respond promptly within 24 hours</p>
+                    <a href="mailto:jakenalicj537@gmail.com" class="text-sm font-bold text-gold-600 hover:text-gold-500 bg-cocoa-50 px-3 py-2 rounded-lg border border-cocoa-200 break-all">
+                        jakenalicj537@gmail.com
+                    </a>
+                </div>
+
+                <!-- Location Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-200 text-center space-y-3 flex flex-col items-center">
+                    <div class="w-14 h-14 rounded-full bg-cocoa-100 text-cocoa-800 flex items-center justify-center text-2xl">
+                        <i class="fas fa-location-dot"></i>
+                    </div>
+                    <h3 class="font-bold text-cocoa-900 text-lg">Nairobi Workshop</h3>
+                    <p class="text-xs text-cocoa-500">Crafted in Nairobi • Made with Love</p>
+                    <span class="text-xs font-semibold text-cocoa-800 bg-cocoa-50 px-3 py-2 rounded-lg border border-cocoa-200">
+                        Nairobi, Kenya
+                    </span>
+                </div>
+            </div>
+
+            <!-- Form & Story Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                
+                <!-- Contact Form -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-cocoa-200 space-y-6">
+                    <div>
+                        <h3 class="font-serif-title text-2xl font-bold text-cocoa-900">Send Us a Message</h3>
+                        <p class="text-xs text-cocoa-600 mt-1">Fill out the form below to contact our Milan Luxe chocolatiers.</p>
+                    </div>
+
+                    <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-700 mb-1">Your Name</label>
+                                <input type="text" name="name" maxlength="100" required placeholder="Jane Doe" class="w-full px-3.5 py-2.5 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-cocoa-700 mb-1">Phone Number</label>
+                                <input type="tel" name="phone" maxlength="30" placeholder="0712345678" class="w-full px-3.5 py-2.5 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-cocoa-700 mb-1">Email Address</label>
+                            <input type="email" name="email" maxlength="120" required placeholder="name@example.com" class="w-full px-3.5 py-2.5 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-cocoa-700 mb-1">Select Blend Interest</label>
+                            <select name="interest" class="w-full px-3.5 py-2.5 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600">
+                                <option>Coffee Blend (Coffee + Walnuts + Mint)</option>
+                                <option>Strawberry Blend (Strawberry + Caramel Swirls)</option>
+                                <option>Cycle Blend (Hibiscus + Ginger Root)</option>
+                                <option>Custom Luxury Assortment Box</option>
+                                <option>General Inquiry / Payments</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-cocoa-700 mb-1">Message</label>
+                            <textarea name="message" maxlength="2000" rows="4" required placeholder="Tell us how we can assist you..." class="w-full px-3.5 py-2.5 border border-cocoa-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-cocoa-600"></textarea>
+                        </div>
+
+                        <button id="contact-btn" type="submit" class="w-full py-3.5 bg-cocoa-900 hover:bg-cocoa-800 text-gold-400 font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Brand Story -->
+                <div class="bg-cocoa-900 text-white p-8 rounded-2xl shadow-xl space-y-6 border border-cocoa-700">
+                    <h3 class="font-serif-title text-2xl font-bold text-gold-400">About Milan Luxe Chocolate</h3>
+                    
+                    <p class="text-sm text-cocoa-200 leading-relaxed">
+                        Milan Luxe Chocolate is proudly <strong>Crafted in Nairobi • Made with Love</strong>. We combine rich cocoa with organic local botanicals and fruits to create three distinctive, memorable recipes: Coffee & Walnuts, Strawberry & Caramel, and Hibiscus & Ginger.
+                    </p>
+
+                    <div class="border-t border-b border-cocoa-800 py-4 space-y-3 text-xs text-cocoa-300">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-award text-gold-400 text-sm mt-0.5"></i>
+                            <span>Freshly made in Nairobi using natural ingredients.</span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-envelope text-gold-400 text-sm mt-0.5"></i>
+                            <span>Support Email: <strong class="text-white">jakenalicj537@gmail.com</strong></span>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-phone text-gold-400 text-sm mt-0.5"></i>
+                            <span>Phone: <strong class="text-white">0110503690</strong></span>
+                        </div>
+                    </div>
+
+                    <div class="bg-cocoa-800/80 p-4 rounded-xl border border-cocoa-700">
+                        <h4 class="font-bold text-sm text-gold-400 mb-1"><i class="fas fa-wand-magic-sparkles mr-1"></i> Quality Promise</h4>
+                        <p class="text-xs text-cocoa-300">Every chocolate bar or custom box is carefully packaged with climate-resilient insulation for fresh delivery anywhere.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-cocoa-900 text-cocoa-300 border-t border-cocoa-800 py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                
+                <!-- Col 1 -->
+                <div class="space-y-3 md:col-span-1">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gold-500 flex items-center justify-center text-cocoa-900 font-bold">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <span class="font-serif-title text-lg font-bold text-white">MILAN LUXE</span>
+                    </div>
+                    <p class="text-xs text-cocoa-400">Crafted in Nairobi • Made with Love. Luxury organic handcrafted chocolates.</p>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gold-400">Navigation</h4>
+                    <ul class="text-xs space-y-1.5">
+                        <li><button onclick="navigateTo('home')" class="hover:text-white">Featured Blends</button></li>
+                        <li><button onclick="navigateTo('mix')" class="hover:text-white">Custom Box Builder</button></li>
+                        <li><button onclick="navigateTo('checkout')" class="hover:text-white">Checkout & Order</button></li>
+                        <li><button onclick="navigateTo('contact')" class="hover:text-white">Contact & Support</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gold-400">Direct Contact</h4>
+                    <ul class="text-xs space-y-1.5 text-cocoa-300">
+                        <li><i class="fas fa-phone mr-1.5 text-gold-500"></i> 0110503690</li>
+                        <li><i class="fas fa-envelope mr-1.5 text-gold-500"></i> jakenalicj537@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt mr-1.5 text-gold-500"></i> Nairobi, Kenya</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-gold-400">Accepted Payments</h4>
+                    <p class="text-xs text-cocoa-400">Secure checkout by Pesapal</p>
+                    <div class="flex space-x-3 text-2xl text-cocoa-300 pt-1">
+                        <i class="fas fa-mobile-screen text-emerald-400" title="M-Pesa"></i>
+                        <i class="fab fa-cc-visa text-blue-400" title="VISA Card"></i>
+                        <i class="fab fa-cc-mastercard text-red-400" title="MasterCard"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-t border-cocoa-800 pt-6 text-center text-xs text-cocoa-500 flex flex-col sm:flex-row justify-between items-center">
+                <p>&copy; 2026 Milan Luxe Chocolate. All rights reserved.</p>
+                <p class="mt-2 sm:mt-0">Crafted in Nairobi • Made with Love</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INLINE JAVASCRIPT LOGIC -->
+    <script>
+        // ==========================================
+        // MILAN LUXE CHOCOLATE BLENDS DATA
+        // ==========================================
+        const PRODUCTS = [
+            {
+                id: 'milan-coffee',
+                name: 'Milan Luxe - Coffee Blend',
+                category: 'coffee',
+                price: 350,
+                weight: 50,
+                ingredients: 'Roasted Coffee Beans + Crunchy Walnuts + Mint Leaves',
+                desc: 'Rich Nairobi-crafted dark chocolate infused with aromatic roasted coffee beans, premium walnuts, and a refreshing hint of mint leaves.',
+                bgColor: 'from-coffee-900 to-cocoa-800',
+                badgeColor: 'bg-coffee-600 text-white',
+                tag: 'Energy & Focus',
+                svgGraphic: `
+                    <svg viewBox="0 0 200 160" class="w-full h-40 object-contain mx-auto">
+                        <!-- Background landscape/mountain outline -->
+                        <path d="M 10 130 Q 60 70 100 110 T 190 120 L 190 150 L 10 150 Z" fill="#4A2C1D" opacity="0.2"/>
+                        <!-- Coffee Bean -->
+                        <ellipse cx="100" cy="85" rx="32" ry="22" fill="#3D2413" stroke="#D2B498" stroke-width="2" transform="rotate(-15 100 85)"/>
+                        <path d="M 75 85 C 90 70 110 100 125 85" fill="none" stroke="#F3C668" stroke-width="2.5" stroke-linecap="round"/>
+                        <!-- Walnut -->
+                        <circle cx="145" cy="60" r="18" fill="#B88F6D" stroke="#3D2413" stroke-width="2"/>
+                        <path d="M 135 60 C 145 50 145 70 155 60" fill="none" stroke="#5C3A21" stroke-width="2"/>
+                        <!-- Mint Leaves -->
+                        <path d="M 50 65 Q 40 40 60 45 Q 65 65 50 65 Z" fill="#2E7D32"/>
+                        <path d="M 60 50 Q 80 35 75 55 Q 60 65 60 50 Z" fill="#4CAF50"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'milan-strawberry',
+                name: 'Milan Luxe - Strawberry Blend',
+                category: 'strawberry',
+                price: 350,
+                weight: 50,
+                ingredients: 'Sweet Ripe Strawberries + Smooth Golden Caramel Swirls',
+                desc: 'Velvety artisanal milk chocolate filled with luscious ripe strawberries and rich, golden caramel drips.',
+                bgColor: 'from-berry-800 to-cocoa-900',
+                badgeColor: 'bg-berry-600 text-white',
+                tag: 'Sweet Indulgence',
+                svgGraphic: `
+                    <svg viewBox="0 0 200 160" class="w-full h-40 object-contain mx-auto">
+                        <!-- Caramel Drips -->
+                        <path d="M 30 20 Q 40 45 45 20 Q 55 60 65 20" fill="none" stroke="#E5AF39" stroke-width="5" stroke-linecap="round"/>
+                        <!-- Strawberry 1 -->
+                        <path d="M 75 60 C 55 70 55 120 80 125 C 105 120 105 70 85 60 Z" fill="#E85A71"/>
+                        <path d="M 70 60 Q 80 50 90 60 Q 80 55 70 60 Z" fill="#2E7D32"/>
+                        <!-- Strawberry Seeds -->
+                        <circle cx="73" cy="78" r="1.5" fill="#FFF"/>
+                        <circle cx="85" cy="85" r="1.5" fill="#FFF"/>
+                        <circle cx="78" cy="98" r="1.5" fill="#FFF"/>
+                        <!-- Strawberry 2 -->
+                        <path d="M 125 65 C 105 75 105 125 130 130 C 155 125 155 75 135 65 Z" fill="#C72C48"/>
+                        <path d="M 120 65 Q 130 55 140 65 Q 130 60 120 65 Z" fill="#4CAF50"/>
+                        <circle cx="123" cy="83" r="1.5" fill="#FFF"/>
+                        <circle cx="135" cy="90" r="1.5" fill="#FFF"/>
+                        <circle cx="128" cy="103" r="1.5" fill="#FFF"/>
+                    </svg>
+                `
+            },
+            {
+                id: 'milan-cycle',
+                name: 'Milan Luxe - Cycle Blend',
+                category: 'cycle',
+                price: 380,
+                weight: 50,
+                ingredients: 'Tangy Red Hibiscus Flower + Organic Ginger Root',
+                desc: 'A comforting botanical chocolate blend crafted with vibrant red hibiscus flower petals and zesty organic ginger root for holistic warmth.',
+                bgColor: 'from-hibiscus-900 to-cocoa-900',
+                badgeColor: 'bg-hibiscus-700 text-white',
+                tag: 'Botanical Harmony',
+                svgGraphic: `
+                    <svg viewBox="0 0 200 160" class="w-full h-40 object-contain mx-auto">
+                        <!-- Red Hibiscus Flower Petals -->
+                        <g transform="translate(90,75)">
+                            <ellipse cx="0" cy="-22" rx="14" ry="22" fill="#C72C48"/>
+                            <ellipse cx="22" cy="0" rx="22" ry="14" fill="#8B1E3F"/>
+                            <ellipse cx="0" cy="22" rx="14" ry="22" fill="#C72C48"/>
+                            <ellipse cx="-22" cy="0" rx="22" ry="14" fill="#8B1E3F"/>
+                            <circle cx="0" cy="0" r="7" fill="#E5AF39"/>
+                            <line x1="0" y1="0" x2="15" y2="-15" stroke="#F3C668" stroke-width="2"/>
+                            <circle cx="17" cy="-17" r="2.5" fill="#F3C668"/>
+                        </g>
+                        <!-- Ginger Root -->
+                        <path d="M 125 110 C 135 95 155 100 160 115 C 165 125 150 140 135 135 Z" fill="#D2B498" stroke="#7E5234" stroke-width="2"/>
+                        <circle cx="140" cy="115" r="8" fill="#E5D3C0"/>
+                    </svg>
+                `
+            }
+        ];
+
+        // Global State
+        let cart = [];
+        let customBox = {
+            capacity: 6,
+            items: {} // maps productId -> quantity
+        };
+
+        // ==========================================
+        // NAVIGATION (SPA)
+        // ==========================================
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(p => p.classList.add('hidden'));
+
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => {
+                btn.classList.remove('text-gold-400');
+                btn.classList.add('text-cocoa-200');
+            });
+            const activeNav = document.getElementById(`nav-${pageId}`);
+            if (activeNav) {
+                activeNav.classList.remove('text-cocoa-200');
+                activeNav.classList.add('text-gold-400');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (pageId === 'checkout') {
+                renderCheckoutPage();
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // ==========================================
+        // HOME CATALOG RENDER
+        // ==========================================
+        function renderCatalog(filter = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? PRODUCTS 
+                : PRODUCTS.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-cocoa-200 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div>
+                        <!-- Packaging Visual Header -->
+                        <div class="relative bg-gradient-to-b ${p.bgColor} p-6 text-white text-center border-b border-cocoa-700">
+                            <span class="absolute top-4 left-4 text-[10px] uppercase font-bold tracking-widest text-gold-400 bg-cocoa-900/60 px-2.5 py-1 rounded-full border border-gold-400/30">
+                                Crafted in Nairobi
+                            </span>
+                            <span class="absolute top-4 right-4 ${p.badgeColor} text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                                ${p.tag}
+                            </span>
+                            
+                            <div class="pt-6">
+                                ${p.svgGraphic}
+                            </div>
+                            <h4 class="text-xs uppercase tracking-widest text-gold-400 mt-2">Milan Luxe</h4>
+                            <h3 class="font-serif-title text-2xl font-bold text-white">${p.name.replace('Milan Luxe - ', '')}</h3>
+                        </div>
+
+                        <!-- Info Body -->
+                        <div class="p-6 space-y-3">
+                            <div class="bg-cocoa-50 p-2.5 rounded-xl border border-cocoa-200 text-xs text-cocoa-800 font-medium">
+                                <i class="fas fa-leaf text-gold-600 mr-1"></i> <strong>Key Ingredients:</strong> ${p.ingredients}
+                            </div>
+                            <p class="text-xs text-cocoa-600 leading-relaxed">${p.desc}</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Bar -->
+                    <div class="p-6 pt-0">
+                        <div class="flex items-center justify-between pt-4 border-t border-cocoa-100">
+                            <div>
+                                <span class="text-[11px] text-cocoa-400 block uppercase tracking-wider">50g Luxury Bar</span>
+                                <span class="text-xl font-bold text-cocoa-900">KSh ${p.price}</span>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="addSingleToCart('${p.id}')" class="px-4 py-2 bg-cocoa-900 hover:bg-cocoa-800 text-gold-400 rounded-xl font-bold text-xs shadow transition flex items-center space-x-1">
+                                    <i class="fas fa-plus text-[10px]"></i>
+                                    <span>Add Bar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCatalog(category) {
+            const btns = document.querySelectorAll('.cat-filter-btn');
+            btns.forEach(b => {
+                if(b.dataset.cat === category) {
+                    b.className = "cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-800 text-gold-400 shadow-sm";
+                } else {
+                    b.className = "cat-filter-btn px-4 py-1.5 rounded-full text-xs font-medium bg-cocoa-100 text-cocoa-700 hover:bg-cocoa-200 transition";
+                }
+            });
+            renderCatalog(category);
+        }
+
+        // ==========================================
+        // MIX & MATCH BOX BUILDER LOGIC
+        // ==========================================
+        function selectBoxCapacity(cap) {
+            customBox.capacity = cap;
+            
+            [6, 12, 24].forEach(c => {
+                const btn = document.getElementById(`box-cap-${c}`);
+                if (c === cap) {
+                    btn.className = "box-cap-btn p-4 rounded-xl border-2 border-gold-500 bg-cocoa-50 text-center transition flex flex-col items-center shadow-sm";
+                } else {
+                    btn.className = "box-cap-btn p-4 rounded-xl border border-cocoa-200 hover:border-cocoa-400 bg-white text-center transition flex flex-col items-center";
+                }
+            });
+
+            const currentTotal = getCustomBoxTotalPieces();
+            if (currentTotal > cap) {
+                resetMixBox();
+                showToast("Box capacity changed. Items reset.", "warning");
+            } else {
+                updateMixBoxUI();
+            }
+        }
+
+        function renderMixItems() {
+            const container = document.getElementById('mix-items-container');
+            container.innerHTML = '';
+
+            PRODUCTS.forEach(p => {
+                const qty = customBox.items[p.id] || 0;
+                const itemDiv = document.createElement('div');
+                itemDiv.className = "p-4 rounded-xl border border-cocoa-200 bg-white shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3";
+                itemDiv.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-lg bg-cocoa-800 text-gold-400 flex items-center justify-center font-serif-title font-bold text-lg shrink-0">
+                            ${p.name.replace('Milan Luxe - ', '').charAt(0)}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-cocoa-900">${p.name}</h4>
+                            <p class="text-xs text-cocoa-500">${p.ingredients}</p>
+                            <span class="text-xs font-semibold text-gold-600">KSh ${p.price} / unit</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 self-end sm:self-center">
+                        <button onclick="changeMixQty('${p.id}', -1)" class="w-8 h-8 rounded-lg bg-cocoa-100 border border-cocoa-300 text-cocoa-800 font-bold text-sm flex items-center justify-center hover:bg-cocoa-200">-</button>
+                        <span class="w-6 text-center text-sm font-bold text-cocoa-900">${qty}</span>
+                        <button onclick="changeMixQty('${p.id}', 1)" class="w-8 h-8 rounded-lg bg-cocoa-900 text-gold-400 font-bold text-sm flex items-center justify-center hover:bg-cocoa-800">+</button>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        function changeMixQty(productId, delta) {
+            const currentTotal = getCustomBoxTotalPieces();
+            const currentQty = customBox.items[productId] || 0;
+
+            if (delta > 0 && currentTotal >= customBox.capacity) {
+                showToast(`Your box is full! (${customBox.capacity} items max)`, "warning");
+                return;
+            }
+
+            const newQty = currentQty + delta;
+            if (newQty <= 0) {
+                delete customBox.items[productId];
+            } else {
+                customBox.items[productId] = newQty;
+            }
+
+            renderMixItems();
+            updateMixBoxUI();
+        }
+
+        function getCustomBoxTotalPieces() {
+            return Object.values(customBox.items).reduce((sum, q) => sum + q, 0);
+        }
+
+        function resetMixBox() {
+            customBox.items = {};
+            renderMixItems();
+            updateMixBoxUI();
+        }
+
+        function updateMixBoxUI() {
+            const totalPieces = getCustomBoxTotalPieces();
+            const capacity = customBox.capacity;
+            
+            let totalPrice = 0;
+            let totalWeight = 0;
+            let typeCount = 0;
+
+            Object.entries(customBox.items).forEach(([pId, qty]) => {
+                const prod = PRODUCTS.find(p => p.id === pId);
+                if (prod) {
+                    totalPrice += prod.price * qty;
+                    totalWeight += prod.weight * qty;
+                    typeCount++;
+                }
+            });
+
+            document.getElementById('capacity-counter').innerText = `${totalPieces} / ${capacity} pcs`;
+            const pct = Math.min(100, Math.round((totalPieces / capacity) * 100));
+            document.getElementById('capacity-bar').style.width = `${pct}%`;
+
+            document.getElementById('custom-box-weight').innerText = `${totalWeight} g`;
+            document.getElementById('custom-box-varieties').innerText = `${typeCount} blend${typeCount === 1 ? '' : 's'}`;
+            document.getElementById('custom-box-price').innerText = `KSh ${totalPrice.toLocaleString()}`;
+
+            const previewList = document.getElementById('mix-preview-list');
+            if (totalPieces === 0) {
+                previewList.innerHTML = `<p class="text-cocoa-400 italic py-2 text-center">Your box is empty. Click chocolate items to add them!</p>`;
+            } else {
+                previewList.innerHTML = '';
+                Object.entries(customBox.items).forEach(([pId, qty]) => {
+                    const prod = PRODUCTS.find(p => p.id === pId);
+                    if (prod) {
+                        const itemRow = document.createElement('div');
+                        itemRow.className = "flex justify-between items-center bg-cocoa-800/40 px-3 py-1.5 rounded-lg border border-cocoa-700/40 text-xs";
+                        itemRow.innerHTML = `
+                            <span class="text-cocoa-200">${prod.name.replace('Milan Luxe - ', '')}</span>
+                            <span class="font-bold text-gold-400">x${qty}</span>
+                        `;
+                        previewList.appendChild(itemRow);
+                    }
+                });
+            }
+
+            const addBtn = document.getElementById('add-box-to-cart-btn');
+            if (totalPieces === capacity) {
+                addBtn.disabled = false;
+                addBtn.className = "w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-400 hover:to-gold-500 text-cocoa-900 font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2 animate-bounce";
+            } else {
+                addBtn.disabled = true;
+                addBtn.className = "w-full py-3.5 bg-gradient-to-r from-gold-500 to-gold-600 opacity-50 cursor-not-allowed text-cocoa-900 font-bold rounded-xl shadow-md transition flex items-center justify-center space-x-2";
+            }
+        }
+
+        function addCustomBoxToCart() {
+            const totalPieces = getCustomBoxTotalPieces();
+            if (totalPieces < customBox.capacity) {
+                showToast(`Please complete filling your ${customBox.capacity}-item box!`, "warning");
+                return;
+            }
+
+            let boxPrice = 0;
+            let boxDetails = [];
+            Object.entries(customBox.items).forEach(([pId, qty]) => {
+                const prod = PRODUCTS.find(p => p.id === pId);
+                if (prod) {
+                    boxPrice += prod.price * qty;
+                    boxDetails.push(`${prod.name.replace('Milan Luxe - ', '')} (x${qty})`);
+                }
+            });
+
+            const customCartItem = {
+                id: 'custom-box-' + Date.now(),
+                name: `Milan Luxe Custom Box (${customBox.capacity} Items)`,
+                price: boxPrice,
+                qty: 1,
+                isCustom: true,
+                capacity: customBox.capacity,
+                mix: { ...customBox.items },
+                details: boxDetails.join(', ')
+            };
+
+            cart.push(customCartItem);
+            updateCartBadge();
+            resetMixBox();
+            showToast("Custom Milan Luxe Box added to your cart!", "success");
+        }
+
+        // ==========================================
+        // CART & CHECKOUT
+        // ==========================================
+        function addSingleToCart(productId) {
+            const prod = PRODUCTS.find(p => p.id === productId);
+            if (!prod) return;
+
+            const existing = cart.find(item => item.id === prod.id);
+            if (existing) {
+                existing.qty = Math.min(50, existing.qty + 1);
+            } else {
+                cart.push({
+                    id: prod.id,
+                    name: prod.name,
+                    price: prod.price,
+                    qty: 1,
+                    isCustom: false
+                });
+            }
+
+            updateCartBadge();
+            showToast(`${prod.name} added to cart!`, "success");
+        }
+
+        function updateCartBadge() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cart-badge').innerText = totalItems;
+            saveCart(); // every cart change goes through here
+        }
+
+        function saveCart() {
+            try { localStorage.setItem('milan_cart', JSON.stringify(cart)); } catch (e) { /* storage unavailable */ }
+        }
+
+        function loadCart() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('milan_cart') || '[]');
+                if (!Array.isArray(saved)) return;
+                cart = saved.filter(i => i && typeof i.id === 'string' && Number.isInteger(i.qty) && i.qty > 0 && i.qty <= 50 &&
+                    (i.isCustom ? (i.mix && i.capacity) : PRODUCTS.some(p => p.id === i.id)));
+            } catch (e) { cart = []; }
+        }
+
+        function calculateCartTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        function renderCheckoutPage() {
+            const container = document.getElementById('checkout-cart-items');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 space-y-3">
+                        <i class="fas fa-shopping-bag text-4xl text-cocoa-300"></i>
+                        <p class="text-cocoa-600 text-sm">Your shopping cart is currently empty.</p>
+                        <button onclick="navigateTo('home')" class="px-4 py-2 bg-cocoa-800 text-gold-400 text-xs font-bold rounded-lg hover:bg-cocoa-900">
+                            Browse Catalog
+                        </button>
+                    </div>
+                `;
+            } else {
+                cart.forEach((item, index) => {
+                    const row = document.createElement('div');
+                    row.className = "py-3 flex items-center justify-between space-x-3";
+                    row.innerHTML = `
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-sm text-cocoa-900">${item.name}</h4>
+                            ${item.isCustom ? `<p class="text-[11px] text-cocoa-500 italic max-w-xs">${item.details}</p>` : ''}
+                            <span class="text-xs text-cocoa-600">KSh ${item.price} each</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center border border-cocoa-300 rounded-lg overflow-hidden text-xs">
+                                <button onclick="updateCartQty(${index}, -1)" class="px-2 py-1 bg-cocoa-100 hover:bg-cocoa-200 text-cocoa-800 font-bold">-</button>
+                                <span class="px-2 py-1 font-bold text-cocoa-900">${item.qty}</span>
+                                <button onclick="updateCartQty(${index}, 1)" class="px-2 py-1 bg-cocoa-100 hover:bg-cocoa-200 text-cocoa-800 font-bold">+</button>
+                            </div>
+                            <span class="font-bold text-sm text-cocoa-900 w-16 text-right">KSh ${(item.price * item.qty).toLocaleString()}</span>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 text-xs p-1">
+                                <i class="fas fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+            }
+
+            const total = calculateCartTotal();
+            document.getElementById('checkout-subtotal').innerText = `KSh ${total.toLocaleString()}`;
+            document.getElementById('checkout-total-price').innerText = `KSh ${total.toLocaleString()}`;
+            document.getElementById('pay-btn').disabled = cart.length === 0;
+        }
+
+        function updateCartQty(index, delta) {
+            if (cart[index]) {
+                cart[index].qty = Math.min(50, cart[index].qty + delta);
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            updateCartBadge();
+            renderCheckoutPage();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            renderCheckoutPage();
+        }
+
+        // ==========================================
+        // PAYMENTS (Pesapal)
+        // ==========================================
+        const PHONE_RE = /^(?:\+?254|0)[17]\d{8}$/;
+        const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        function fieldValue(id) { return document.getElementById(id).value.trim(); }
+
+        function showPayError(msg, fieldId) {
+            const el = document.getElementById('pay-error');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+            if (fieldId) document.getElementById(fieldId).focus();
+        }
+
+        function setPayLoading(loading) {
+            const btn = document.getElementById('pay-btn');
+            btn.disabled = loading || cart.length === 0;
+            document.getElementById('pay-btn-text').innerText = loading ? 'Connecting to Pesapal...' : 'Pay Securely with Pesapal';
+        }
+
+        function toServerItem(item) {
+            return item.isCustom
+                ? { type: 'box', capacity: item.capacity, mix: item.mix, qty: item.qty }
+                : { type: 'bar', id: item.id, qty: item.qty };
+        }
+
+        async function startPesapalCheckout() {
+            document.getElementById('pay-error').classList.add('hidden');
+
+            if (location.protocol === 'file:') {
+                return showPayError('Open the website through the server (for example http://localhost:3000), not by double-clicking the file.');
+            }
+            if (cart.length === 0) return showToast('Your cart is empty!', 'warning');
+
+            const customer = {
+                name: fieldValue('ship-name'),
+                phone: fieldValue('ship-phone').replace(/[\s-]/g, ''),
+                email: fieldValue('ship-email'),
+                address: fieldValue('ship-address')
+            };
+            if (customer.name.length < 2) return showPayError('Please enter your full name.', 'ship-name');
+            if (!PHONE_RE.test(customer.phone)) return showPayError('Please enter a valid Kenyan phone number, e.g. 0712345678.', 'ship-phone');
+            if (!EMAIL_RE.test(customer.email)) return showPayError('Please enter a valid email address.', 'ship-email');
+            if (customer.address.length < 5) return showPayError('Please enter your delivery address.', 'ship-address');
+
+            setPayLoading(true);
+            try {
+                const r = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customer, items: cart.map(toServerItem) })
+                });
+                const data = await r.json().catch(() => ({}));
+                if (!r.ok || !data.redirectUrl) throw new Error(data.error || 'Could not start the payment. Please try again.');
+                try { localStorage.setItem('milan_last_ref', data.ref); } catch (e) { /* ignore */ }
+                window.location.href = data.redirectUrl; // Pesapal hosted page: M-Pesa, Airtel, Visa, Mastercard
+            } catch (e) {
+                showPayError(e.message);
+                setPayLoading(false);
+            }
+        }
+
+        // ---- Customer returns from Pesapal to /payment-complete ----
+        function showResult(state, ref) {
+            const icon = document.getElementById('result-icon');
+            const base = 'w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl ';
+            const btn = 'px-5 py-2.5 rounded-xl text-sm font-bold transition ';
+            const dark = btn + 'bg-cocoa-900 text-gold-400 hover:bg-cocoa-800';
+            const light = btn + 'bg-cocoa-100 text-cocoa-800 hover:bg-cocoa-200';
+            document.getElementById('result-ref').innerText = ref ? `Order reference: ${ref}` : '';
+
+            const states = {
+                checking: [base + 'bg-cocoa-100 text-cocoa-700', 'fa-spinner fa-spin', 'Confirming your payment...', 'Please wait a moment while we confirm with Pesapal.', ''],
+                paid: [base + 'bg-emerald-100 text-emerald-700', 'fa-check', 'Payment received. Thank you!', 'Your order is confirmed. We will contact you on your phone to arrange delivery. A receipt is on its way to your email.',
+                    `<button class="${dark}" onclick="navigateTo('home')">Continue Shopping</button>`],
+                pending: [base + 'bg-amber-100 text-amber-700', 'fa-hourglass-half', 'Payment still processing', 'We have not received confirmation yet. If you already paid, please wait a minute and check again. Do not pay twice.',
+                    `<button class="${dark}" onclick="recheckPayment()">Check Again</button><button class="${light}" onclick="navigateTo('contact')">Contact Us</button>`],
+                failed: [base + 'bg-red-100 text-red-700', 'fa-xmark', 'Payment not completed', 'The payment was cancelled or failed, and you have not been charged. Your cart is still saved so you can try again.',
+                    `<button class="${dark}" onclick="navigateTo('checkout')">Try Again</button><button class="${light}" onclick="navigateTo('contact')">Contact Us</button>`],
+                reversed: [base + 'bg-red-100 text-red-700', 'fa-rotate-left', 'Payment reversed', 'This payment was reversed. Please contact us with your order reference.',
+                    `<button class="${dark}" onclick="navigateTo('contact')">Contact Us</button>`],
+                review: [base + 'bg-amber-100 text-amber-700', 'fa-magnifying-glass', 'We are reviewing your payment', 'The amount received did not match your order total. Please contact us with your order reference.',
+                    `<button class="${dark}" onclick="navigateTo('contact')">Contact Us</button>`],
+                error: [base + 'bg-amber-100 text-amber-700', 'fa-wifi', 'Could not confirm yet', 'We could not reach the server to confirm your payment. If you already paid, do not pay again. Try checking again.',
+                    `<button class="${dark}" onclick="recheckPayment()">Check Again</button>`]
+            };
+            const [iconCls, glyph, t, m, a] = states[state] || states.error;
+            icon.className = iconCls;
+            icon.innerHTML = `<i class="fas ${glyph}"></i>`;
+            document.getElementById('result-title').innerText = t;
+            document.getElementById('result-msg').innerText = m;
+            document.getElementById('result-actions').innerHTML = a;
+        }
+
+        let returnRef = null;
+        let pollTimer = null;
+
+        async function checkPayment(attempt = 0) {
+            clearTimeout(pollTimer);
+            try {
+                const r = await fetch(`/api/payment-status?ref=${encodeURIComponent(returnRef)}`);
+                const data = await r.json();
+                if (!r.ok) throw new Error(data.error || 'status error');
+
+                if (data.status === 'pending' && attempt < 30) {
+                    pollTimer = setTimeout(() => checkPayment(attempt + 1), 3000);
+                    return;
+                }
+                showResult(data.status, returnRef);
+                if (data.status === 'paid') {
+                    cart = [];
+                    updateCartBadge();
+                    try { localStorage.removeItem('milan_last_ref'); } catch (e) { /* ignore */ }
+                }
+                if (data.status !== 'pending') history.replaceState(null, '', '/');
+            } catch (e) {
+                showResult('error', returnRef);
+            }
+        }
+
+        function recheckPayment() {
+            showResult('checking', returnRef);
+            checkPayment(0);
+        }
+
+        function handlePaymentReturn() {
+            const params = new URLSearchParams(location.search);
+            returnRef = params.get('OrderMerchantReference');
+            if (!returnRef) { try { returnRef = localStorage.getItem('milan_last_ref'); } catch (e) { /* ignore */ } }
+            navigateTo('result');
+            if (!returnRef) { showResult('error', ''); return; }
+            showResult('checking', returnRef);
+            checkPayment(0);
+        }
+
+        // ==========================================
+        // CONTACT FORM & UTILS
+        // ==========================================
+        async function handleContactSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const payload = Object.fromEntries(new FormData(form).entries());
+            const btn = document.getElementById('contact-btn');
+            btn.disabled = true;
+            try {
+                const r = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!r.ok) {
+                    const d = await r.json().catch(() => ({}));
+                    throw new Error(d.error || 'send failed');
+                }
+                showToast("Message sent! We'll reply within 24 hours.", 'success');
+                form.reset();
+            } catch (err) {
+                // Server unreachable: fall back to the visitor's email app
+                const body = `Name: ${payload.name}\nPhone: ${payload.phone || ''}\nInterest: ${payload.interest}\n\n${payload.message}`;
+                window.location.href = `mailto:jakenalicj537@gmail.com?subject=${encodeURIComponent('Milan Luxe enquiry')}&body=${encodeURIComponent(body)}`;
+                showToast('Opening your email app to send the message...', 'info');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        let toastTimer = null;
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            const toastTitle = document.getElementById('toast-title');
+            const toastIcon = document.getElementById('toast-icon');
+
+            toastMsg.innerText = message;
+
+            if (type === 'warning') {
+                toastTitle.innerText = "Attention";
+                toastIcon.className = "fas fa-exclamation-triangle text-amber-400 text-xl";
+            } else if (type === 'info') {
+                toastTitle.innerText = "Processing";
+                toastIcon.className = "fas fa-circle-info text-blue-400 text-xl";
+            } else {
+                toastTitle.innerText = "Success";
+                toastIcon.className = "fas fa-check-circle text-gold-400 text-xl";
+            }
+
+            toast.classList.remove('translate-x-full');
+
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.add('translate-x-full');
+            }, 3500);
+        }
+
+        // INIT
+        window.onload = function() {
+            loadCart();
+            renderCatalog('all');
+            renderMixItems();
+            updateMixBoxUI();
+            updateCartBadge();
+            if (location.pathname === '/payment-complete') handlePaymentReturn();
+        }
+    </script>
+</body>
+</html>
